@@ -1,0 +1,13 @@
+//Ejercicio para determinar si un año es bisiesto o no
+
+order bisiesto(entero ANIO){
+    box (ANIO % 4 == 0 && (ANIO % 100 != 0 | ANIO % 400 == 0)) {
+      	confirmacion verdadero;
+    } out {
+        confirmacion falso;
+    }
+}
+
+entero ANIO = 2024;
+booleano verificando = bisiesto(ANIO);
+radio(verificando);
