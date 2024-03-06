@@ -19,7 +19,7 @@ Capital             ::= "capital" Flotante ";"
 
 Auto                ::= "auto" Identificador Flotante Flotante Flotante Flotante Flotante ";"
 
-Funciones           ::= "orden" Identificador "(" Parametros ")" "[" TipoDato "]" "{" Instrucciones Retorno? "}"
+Funciones           ::= "orden" Identificador "(" Parametros ")" ("[" TipoDato "]")? "{" Instrucciones Retorno? "}"
 Parametros          ::= TipoDato Identificador ("," TipoDato Identificador)*
 Retorno             ::= "confirmacion" Expresion ";"
 
@@ -34,17 +34,19 @@ Expresion           ::= ((Valor|Identificador|LlamadaFuncion) (Operador Expresio
 
 LlamadaFuncion      ::= Identificador "(" Expresion* ")"
 
-Condiciones         ::= 
+Condiciones         ::= "box" "(" Expresion ")" "{" Instrucciones "}" ("out" "{" Instrucciones "}")?
 
-Ciclos              ::=
+Ciclos              ::= "circuito" "(" Expresion ")" "{" Instrucciones "}"
 
 Valor               ::= (Entero|Flotante|Booleano|Cadena)
 TipoDato            ::= ("entero"|"flotante"|"booleano"|"cadena")
 
 Identificador       ::= [a-zA-z][0-9a-zA-Z_]*
 
-Entero              ::= [1-9][0-9]*
-Flotante            ::= [1-9][0-9]*"."[0-9]*
+Comentario          ::= ("//" [^\n]* | "/*" [^*]* "*/")
+
+Entero              ::= [0-9]*
+Flotante            ::= [0-9]*"."[0-9]*
 Booleano            ::= ("verdadero"|"falso")
 Operador            ::= ("+"|"-"|"*"|"/"|"%"|"^"|"&&"|"||"|"=="|"!="|"<"|">"|"<="|">=")
 Cadena              ::= ("[^"]*" | '[^']*')

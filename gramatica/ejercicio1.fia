@@ -1,0 +1,16 @@
+// Ejercicio para determinar cuales numeros del 1 al 10 son pares o impares
+
+orden esPar(entero numero) {
+    box (numero % 2 == 0) {
+        radio(numero, "es par");
+    } out {
+        radio(numero, "es impar");
+    }
+}
+
+entero numero = 1;
+
+circuito (numero <= 10) {
+    esPar(numero);
+    numero = numero + 1;
+}
