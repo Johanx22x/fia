@@ -1,30 +1,50 @@
-% vim:ft=ebnf
-Campeonato ::= Declaraciones Instrucciones
-Declaraciones ::= Escuderias Funciones
-Escuderias ::= Escuderia Escuderia+
-Escuderia ::= escuderia Identificador "{" Miembro+ Recurso* Auto+ "}"
-Funciones ::= orden Identificador "(" Parametros ")" "[" TipoDato "]" "{" Instrucciones Retorno? "}"
-Retorno ::= confirmacion "(" Identificador | Valor ")" ";"
-Miembro ::= (Piloto|Director|Ingeniero)+
-Piloto ::= piloto Identificador Entero Flotante Flotante Flotante Flotante Flotante ";"
-Director ::= director Identificador Flotante Entero Entero Entero Flotante ";"
-Ingeniero ::= ingeniero Identificador TipoIngeniero ";"
-TipoIngeniero ::= ("Aerodinamica"|"Mecanica")
-Recurso ::= (Presupuesto|Capital)*
-Presupuesto ::= presupuesto Flotante ";"
-Capital ::= capital Flotante ";"
-Auto ::= auto Identificador Flotante Flotante Flotante Flotante Flotante ";"
-Parametros ::= TipoDato Identificador ("," TipoDato Identificador)*
-Instrucciones ::= (Condiciones|Ciclos|Instruccion)*
-Instruccion ::= (DeclaracionVariable|Asignacion|LlamadaFuncion)*
-LlamadaFuncion ::= Identificador "(" Valor* ")"
+vim:ft=ebnf
+
+Campeonato          ::= Declaraciones Instrucciones
+
+Declaraciones       ::= Escuderias Funciones*
+
+Escuderias          ::= Escuderia Escuderia+
+Escuderia           ::= "escuderia" Identificador "{" Miembro+ Recurso* Auto+ "}"
+
+Miembro             ::= (Piloto|Director|Ingeniero)+
+Piloto              ::= "piloto" Identificador Entero Flotante Flotante Flotante Flotante Flotante ";"
+Director            ::= "director" Identificador Flotante Entero Entero Entero Flotante ";"
+Ingeniero           ::= "ingeniero" Identificador TipoIngeniero ";"
+TipoIngeniero       ::= ("Aerodinamica"|"Mecanica")
+
+Recurso             ::= Presupuesto? Capital?
+Presupuesto         ::= "presupuesto" Flotante ";"
+Capital             ::= "capital" Flotante ";"
+
+Auto                ::= "auto" Identificador Flotante Flotante Flotante Flotante Flotante ";"
+
+Funciones           ::= "orden" Identificador "(" Parametros ")" "[" TipoDato "]" "{" Instrucciones Retorno? "}"
+Parametros          ::= TipoDato Identificador ("," TipoDato Identificador)*
+Retorno             ::= "confirmacion" Expresion ";"
+
+Instrucciones       ::= (Condiciones|Ciclos|Instruccion)*
+
+Instruccion         ::= ((DeclaracionVariable|Asignacion|LlamadaFuncion) ";")*
+
 DeclaracionVariable ::= TipoDato Asignacion
-Asignacion ::= Identificador "=" Expresion ";"
-Expresion ::= (Valor|Identificador|LlamadaFuncion) (Operador Expresion)
-TipoDato ::= ("entero"|"flotante"|"booleano"|"cadena")
-Valor ::= (Entero|Flotante|Booleano|Cadena)
-Entero ::= [1-9][0-9]*
-Flotante ::= [1-9][0-9]*"."[0-9]*
-Booleano ::= ("verdadero"|"falso")
-Cadena ::= (".*"|'.*')
-Identificador ::= [a-zA-z][0-9a-zA-Z_]*
+Asignacion          ::= Identificador "=" Expresion
+
+Expresion           ::= ((Valor|Identificador|LlamadaFuncion) (Operador Expresion)?) | "(" Expresion ")"
+
+LlamadaFuncion      ::= Identificador "(" Expresion* ")"
+
+Condiciones         ::= 
+
+Ciclos              ::=
+
+Valor               ::= (Entero|Flotante|Booleano|Cadena)
+TipoDato            ::= ("entero"|"flotante"|"booleano"|"cadena")
+
+Identificador       ::= [a-zA-z][0-9a-zA-Z_]*
+
+Entero              ::= [1-9][0-9]*
+Flotante            ::= [1-9][0-9]*"."[0-9]*
+Booleano            ::= ("verdadero"|"falso")
+Operador            ::= ("+"|"-"|"*"|"/"|"%"|"^"|"&&"|"||"|"=="|"!="|"<"|">"|"<="|">=")
+Cadena              ::= ("[^"]*" | '[^']*')
