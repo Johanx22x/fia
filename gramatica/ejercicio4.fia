@@ -1,0 +1,21 @@
+// Ejercicio para determinar si una cadena es palindroma
+
+orden esPalindromo(cadena palabra, entero longitud) [booleano] {
+  entero inicio = 0;
+  entero fin = longitud - 1;
+  
+  circuito (palabra[inicio] == palabra[fin]) {
+    box (inicio >= fin) {
+      confirmacion verdadero;
+    }
+    
+    inicio = inicio + 1;
+    fin = fin - 1;
+  }
+  confirmacion falso;
+}
+
+cadena cadena_ejem = "ana";
+entero longitud_ejem = 3;
+booleano resultado = esPalindromo(cadena_ejem, longitud_ejem);
+radio(resultado);
