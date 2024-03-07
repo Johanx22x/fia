@@ -1,0 +1,19 @@
+// Calcular los primeros N numeros de la secuencia de fibonacci
+
+entero numero = 8;
+
+entero primero = 0;
+entero segundo = 1;
+entero siguiente = 0;
+
+entero recorrido = 1
+circuito (recorrido <= numero) {
+  radio(recorrido + ". El numero es: " + primero);
+                                 
+  siguiente = primero + segundo;
+    
+  primero = segundo;
+  segundo = primero;
+    
+  recorrido = recorrido + 1;
+}
