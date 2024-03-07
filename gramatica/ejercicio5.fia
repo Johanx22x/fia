@@ -1,0 +1,21 @@
+// Función para verificar si una cadena contiene un carácter determinado
+orden contieneCaracter(cadena palabra, entero longitud_palabra, cadena c) [booleano] {
+ entero i = 0;
+  
+  circuito (i < longitud_palabra) {
+    box (palabra[i] == c) {
+      confirmacion verdadero;
+    }
+    
+    i = i + 1;
+  }
+  
+  confirmacion falso;
+}
+
+cadena cadena_ejemplo = "Hola mundo";
+entero longitud_cadena_ejemplo = 10;
+caracter caracter_buscado = "a";
+
+booleano resultado = contieneCaracter(cadena_ejemplo, longitud_cadena_ejemplo, caracter_buscado);
+radio(resultado);
