@@ -2,9 +2,8 @@ vim:ft=ebnf
 
 Campeonato          ::= Declaraciones Instrucciones
 
-Declaraciones       ::= Escuderias Funciones*
+Declaraciones       ::= Escuderia* Funcion*
 
-Escuderias          ::= Escuderia Escuderia+
 Escuderia           ::= "escuderia" Identificador "{" Miembro+ Recurso* Auto+ "}"
 
 Miembro             ::= (Piloto|Director|Ingeniero)+
@@ -19,7 +18,7 @@ Capital             ::= "capital" Flotante ";"
 
 Auto                ::= "auto" Identificador Flotante Flotante Flotante Flotante Flotante ";"
 
-Funciones           ::= "orden" Identificador "(" Parametros ")" ("[" TipoDato "]")? "{" Instrucciones Retorno? "}"
+Funcion             ::= "orden" Identificador "(" Parametros ")" ("[" TipoDato "]")? "{" Instrucciones Retorno? "}"
 Parametros          ::= TipoDato Identificador ("," TipoDato Identificador)*
 Retorno             ::= "confirmacion" Expresion ";"
 
