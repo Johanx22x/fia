@@ -7,7 +7,7 @@ utilizando las estructuras personalizadas y únicas que ofrece el lenguaje.
 
 ___
 
-## Estrucutra del proyecto
+## Estructura del proyecto
 
 ### `gramatica`:
 
