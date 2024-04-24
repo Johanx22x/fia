@@ -1,0 +1,3 @@
+class Nodo:
+    # TODO: Implementar el Nodo
+    ...
