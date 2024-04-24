@@ -4,12 +4,11 @@ import re
 import sys
 import os
 from typing import List, Tuple
-from token import Token
-from tipo_token import TipoToken
 
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 from utilidades.error import ErrorParseo
+from explorador.token import Token, TipoToken
 
 
 TOKENS: List[Tuple[TipoToken, str]] = [
