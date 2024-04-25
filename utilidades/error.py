@@ -57,3 +57,8 @@ class ErrorParseo(Exception):
         error += f"\n{' ' * (self.columna - 1)}\u001b[31m{'^' * self.tamano_lexema}\u001b[0m"
         return error
 
+
+# TODO: Implementar ErrorAnalisis
+class ErrorAnalisis(Exception):
+    """Clase usada para representar un error encontrado en el análisis del código fuente."""
+    ...
