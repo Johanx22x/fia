@@ -9,16 +9,23 @@ def init():
 
 def main():
     # Obtener el código fuente del archivo
-    with open("./gramatica/ejercicio1.fia", "r") as file:
+    with open("./gramatica/ejercicio15.fia", "r") as file:
         codigo_fuente = file.read()
 
     # Tokenizar el código fuente
     explorador = Explorador(codigo_fuente)
     tokens = explorador.tokenizar()
 
+    for token in tokens:
+        print(token)
+
+    print()
+    print()
+
     # Analizar los tokens
     analizador = Analizador(tokens)
     arbol = analizador.analizar()
+    arbol.imprimir()
 
     # TODO: Verificación del árbol
 

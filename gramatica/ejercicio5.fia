@@ -13,9 +13,9 @@ orden contieneCaracter(cadena palabra, entero longitud_palabra, cadena c) [boole
   confirmacion falso;
 }
 
-cadena cadena_ejemplo = "Hola mundo";
+cadena caden_ejemplo = "Hola mundo";
 entero longitud_cadena_ejemplo = 10;
-caracter caracter_buscado = "a";
+cadena caracter_buscado = "a";
 
-booleano resultado = contieneCaracter(cadena_ejemplo, longitud_cadena_ejemplo, caracter_buscado);
+booleano resultado = contieneCaracter(caden_ejemplo, longitud_cadena_ejemplo, caracter_buscado);
 radio(resultado);

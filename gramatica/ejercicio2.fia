@@ -1,7 +1,7 @@
 // Ejercicio para determinar si un año es bisiesto o no
 
 orden bisiesto(entero ANIO) [booleano] {
-    box (ANIO % 4 == 0 && (ANIO % 100 != 0 | ANIO % 400 == 0)) {
+    box (ANIO % 4 == 0 && ((ANIO % 100 != 0) || ANIO % 400 == 0)) {
       	confirmacion verdadero;
     } out {
         confirmacion falso;

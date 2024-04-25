@@ -7,8 +7,8 @@ from typing import List, Tuple
 
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
-from utilidades.error import ErrorParseo
 from explorador.token import Token, TipoToken
+from utilidades.error import ErrorParseo
 
 
 TOKENS: List[Tuple[TipoToken, str]] = [
@@ -23,9 +23,9 @@ TOKENS: List[Tuple[TipoToken, str]] = [
     (TipoToken.ENTERO, r"^[0-9]+"),
     (TipoToken.CADENA, r'^["\'](.+)*["\']'),
     (TipoToken.OPERADORES_ARITMETICOS, r"^(\+|\-|\*|\/|\%|\^)"),
+    (TipoToken.OPERADORES_COMPARACION, r"^(\<\=|\>\=|\=\=|\!\=|\<|\>|)"),
     (TipoToken.OPERADORES_ASIGNACION, r"^(\=|\+\=|\-\=|\*\=|\/\=|\^\=|\%\=)"),
     (TipoToken.OPERADORES_LOGICOS, r"^(\&\&|\|\|)"),
-    (TipoToken.OPERADORES_COMPARACION, r"^(\<\=|\>\=|\=\=|\!\=|\<|\>|)"),
     (TipoToken.PARENTESIS_IZQ, r"^\("),
     (TipoToken.PARENTESIS_DER, r"^\)"),
     (TipoToken.PARENTESIS_CUADRADO_IZQ, r"^\["),
@@ -124,19 +124,3 @@ class Explorador:
             else:
                 self.columna += 1
         self.posicion += cantidad
-
-
-def test() -> None:
-    """Función de prueba para la clase Explorador."""
-    codigo_fuente = ""
-    with open("./gramatica/ejercicio1.fia", "r", encoding="utf-8") as archivo:
-        codigo_fuente = archivo.read()
-
-    explorador = Explorador(codigo_fuente)
-    tokens = explorador.tokenizar()
-    for token in tokens:
-        print(token)
-
-
-if __name__ == "__main__":
-    test()

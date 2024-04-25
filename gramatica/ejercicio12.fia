@@ -1,0 +1,10 @@
+orden contarHasta100() {
+    entero contador = 1;
+    circuito (contador <= 100) {
+        radio(contador);
+        contador = contador + 1;
+    }
+}
+
+contador = 0;
+radio("Contador: " + contador);

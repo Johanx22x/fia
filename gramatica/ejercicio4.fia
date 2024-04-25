@@ -15,7 +15,7 @@ orden esPalindromo(cadena palabra, entero longitud) [booleano] {
   confirmacion falso;
 }
 
-cadena cadena_ejem = "ana";
+cadena caden_ejem = "ana";
 entero longitud_ejem = 3;
-booleano resultado = esPalindromo(cadena_ejem, longitud_ejem);
+booleano resultado = esPalindromo(caden_ejem, longitud_ejem);
 radio(resultado);

@@ -1,0 +1,7 @@
+orden bisiesto(entero ANIO) [booleano] {
+    box (ANIO % 4 == 0 && (((ANIO % 100 != 0) || ANIO % 400 == 0))) {
+      	confirmacion ;
+    } out {
+        confirmacion falso;
+    }
+}

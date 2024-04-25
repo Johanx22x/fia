@@ -1,5 +1,11 @@
 """error.py es un modulo usado para representar los errores encontrados en el
 código fuente."""
+import sys
+import os
+
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+
+from explorador.token import Token
 
 class ErrorParseo(Exception):
     """Clase usada para representar un error encontrado en el código fuente."""
@@ -61,4 +67,22 @@ class ErrorParseo(Exception):
 # TODO: Implementar ErrorAnalisis
 class ErrorAnalisis(Exception):
     """Clase usada para representar un error encontrado en el análisis del código fuente."""
-    ...
+    def __init__(self, descripcion: str, token: Token) -> None:
+        """Inicializa un objeto de la clase Error.
+
+        Args:
+            descripcion (str): La descripción del error encontrado en el código fuente.
+            token (Token): El token donde se encontró el error.
+        """
+        self.descripcion = descripcion
+        self.token = token
+
+    def __str__(self) -> str:
+        """Representa el objeto como un string.
+
+        Returns:
+            str: El objeto representado como un string.
+        """
+        error = f"Error de análisis: {self.descripcion}"
+        error += f" en la línea {self.token.linea} y columna {self.token.columna}.\n"
+        return error

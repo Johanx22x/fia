@@ -1,0 +1,32 @@
+orden contieneCaracter(cadena palabra, entero longitud_palabra, cadena c) [booleano] {
+    entero i = 0;
+
+    circuito (i < longitud_palabra) {
+        box (palabra[i] == c) {
+            confirmacion verdadero;
+        }
+
+        i = i + 1;
+    }
+
+    confirmacion falso;
+}
+
+// escuderia Ferrari {
+//     piloto sebastianVettel 321 213.2 123.1 32.1 43.3;
+//     director totoWolf 12.2 21 4 32 94.2;
+//     ingeniero marc Mecanica;
+//     ingeniero jorge Aerodinamica;
+//     presupuesto 1000000;
+//     capital 321312.42;
+//     auto w11 213 32.2 321.2 31.1 32.1;
+//     auto f_s2 32.1 32.1 32.1 32.1 32.1;
+// }
+
+escuderia Mclaren {
+    piloto lewisHamilton 321 213.2 123.1 32.1 43.3;
+    director jaime 12.2 21 4 32 94.2;
+    ingeniero marc Mecanica;
+    presupuesto 1000000;
+    capital 321312.42;
+}

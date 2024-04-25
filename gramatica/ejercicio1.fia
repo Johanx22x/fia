@@ -9,8 +9,9 @@ orden esPar(entero numero) {
 }
 
 entero numero = 1;
+numero = 2;
 
-circuito (numero <= 10) {
+circuito (numero <= 10 && numero >= 1) {
     esPar(numero);
     numero = numero + 1;
 }
