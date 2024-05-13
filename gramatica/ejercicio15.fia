@@ -1,4 +1,4 @@
-circuito (palabra[inicio == palabra[fin]) {
+circuito (palabra[inicio == palabra[fin]]) {
   box (inicio >= fin) {
     confirmacion verdadero;
   }
