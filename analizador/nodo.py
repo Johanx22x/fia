@@ -32,8 +32,15 @@ class TipoNodo(Enum):
     ACCESO_LISTA = auto()
     VALOR = auto()
     TIPO_INGENIERO = auto()
+    CONDICIONESOUT = auto()
 
 class Nodo:
+
+    tipo : TipoNodo
+    contenido : str
+    atributos : dict
+
+
     """Nodo de un árbol sintáctico abstracto."""
     def __init__(self, tipo, lexema, *args):
         self.tipo = tipo

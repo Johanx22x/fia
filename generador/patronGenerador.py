@@ -1,166 +1,290 @@
 
+from analizador.nodo import Nodo, TipoNodo
 
-class Nodo:
+class Visitante:
 
-    def __init__(self, tipo, contenido, atributos = None):
-        self.tipo = tipo
-        self.contenido = contenido
-        self.atributos = atributos or {}
-    
-    def __str__(self):
-        return f"<'{self.tipo}', '{self.contenido}', {self.atributos}>"
+    tabuladores = 0
+
+    def visitar(self, nodo : TipoNodo):
+        resultado = ''
+
+        if nodo.tipo is TipoNodo.CAMPEONATO:
+            print("Campeonato 0")
+            resultado = self.visitarCampeonato(nodo)
+
+        elif nodo.tipo is TipoNodo.ESCUDERIA:
+            print("Escuderia 1")
+            resultado = self.visitarEscuderia(nodo)
+
+        elif nodo.tipo is TipoNodo.MIEMBROS:
+            print("Miembros 2")
+            resultado = self.visitarMiembros(nodo)
+
+        elif nodo.tipo is TipoNodo.PILOTO:
+            print("Piloto 3")
+            resultado = self.visitarPiloto(nodo)
+
+        elif nodo.tipo is TipoNodo.DIRECTOR:
+            print("DIRECTOR 4")
+            resultado = self.visitarDirector(nodo)
+
+        elif nodo.tipo is TipoNodo.INGENIERO:
+            print("INGENIERO 5")
+            resultado = self.visitarIngeniero(nodo)
+
+        elif nodo.tipo is TipoNodo.RECURSOS:
+            print("RECURSOS 6")
+            resultado = self.visitarRecursos(nodo)
+
+        elif nodo.tipo is TipoNodo.PRESUPUESTO:
+            print("PRESUPUESTO 7")
+            resultado = self.visitarPresupuesto(nodo)
+
+        elif nodo.tipo is TipoNodo.CAPITAL:
+            print("CAPITAL 8")
+            resultado = self.visitarCapital(nodo)
+
+        elif nodo.tipo is TipoNodo.AUTO:
+            print("AUTO 9")
+            resultado = self.visitarAuto(nodo)
+
+        elif nodo.tipo is TipoNodo.FUNCION:
+            print("FUNCION 10")
+            resultado = self.visitarFuncion(nodo)
         
-    def preorden(self) -> str:
-        cadena = f"<'{self.tipo}', '{self.contenido}', {self.atributos}>" + "\n"
-        if "hijos" in self.atributos:
-            for hijo in self.atributos["hijos"]:
-                cadena += hijo.preorden()
-        return cadena
-    
-    def generar(self, nivel=0) -> str:
-        print("entramos a generar en patron")
-        print("imprimiendo self", self)
+        elif nodo.tipo is TipoNodo.LLAMADA_FUNCION:
+            print("LLAMADA_FUNCION 11")
+            resultado = self.visitarLlamadaFuncion(nodo)
 
-        if self.tipo == "CAMPEONATO":
-            print("entramos a campeonato")
-            codigo = ""
-            for hijo in self.atributos["hijos"]:
-                codigo += hijo.generar()
-            return codigo
-    
-        elif self.tipo == "DECLARACIONES":
-            codigo = ""
-            for escuderia in self.atributos["escuderias"]:
-                codigo += escuderia.generar()
-            for funcion in self.atributos["funciones"]:
-                codigo += funcion.generar()
-            return codigo
-        
-        elif self.tipo == "ESCUDERIA":
-            codigo = f"Escuderia: {self.atributos['identificador']}\n"
-            codigo += "{\n"
-            for miembro in self.atributos["miembros"]:
-                codigo += f"\tMiembro: {miembro}\n"
-            for recurso in self.atributos["recursos"]:
-                codigo += f"\tRecurso: {recurso}\n"
-            for auto in self.atributos["autos"]:
-                codigo += f"\tAuto: {auto}\n"
-            codigo += "}\n"
-            return codigo
-    
-        elif self.tipo == "MIEMBROS":
-            codigo = ""
-            for piloto in self.atributos["pilotos"]:
-                codigo += piloto.generar(nivel=1)
-            for director in self.atributos["directores"]:
-                codigo += director.generar(nivel=1)
-            for ingeniero in self.atributos["ingenieros"]:
-                codigo += ingeniero.generar(nivel=1)
-            return codigo
-        
+        elif nodo.tipo is TipoNodo.PARAMETROS:
+            print("PARAMETROS 12")
+            resultado = self.visitarParametros(nodo)
 
-        elif self.tipo == "PILOTO":
-            return "\t"*nivel + f"self.{self.atributos['identificador']} = Piloto({self.atributos['entero']}, {self.atributos['flotante1']}, {self.atributos['flotante2']}, {self.atributos['flotante3']}, {self.atributos['flotante4']}, {self.atributos['flotante5']})\n"
-        
+        elif nodo.tipo is TipoNodo.PARAMETRO:
+            print("PARAMETRO 13")
+            resultado = self.visitarParametro(nodo)
 
-        elif self.tipo == "DIRECTOR":
-            return "\t"*nivel + f"self.{self.atributos['identificador']} = Director({self.atributos['flotante']}, {self.atributos['entero1']}, {self.atributos['entero2']}, {self.atributos['entero3']}, {self.atributos['flotante']})\n"
-    
-    
-        elif self.tipo == "INGENIERO":
-            return "\t"*nivel + f"self.{self.atributos['identificador']} = Ingeniero('{self.atributos['tipoIngeniero']}')\n"
+        elif nodo.tipo is TipoNodo.TIPO_DATO:
+            print("TIPO_DATO 14")
+            resultado = self.visitarTipoDato(nodo)
         
-        elif self.tipo == "RECURSOS":
-            if 'presupuesto' in self.atributos:
-                return self.atributos['presupuesto'].generar(nivel)
-            elif 'capital' in self.atributos:
-                return self.atributos['capital'].generar(nivel)
-    
-        elif self.tipo == "PRESUPUESTO":
-            return "\t"*nivel + f"self.presupuesto = {self.atributos['flotante']}\n"
-    
-        elif self.tipo == "CAPITAL":
-            return "\t"*nivel + f"self.capital = {self.atributos['flotante']}\n"
-    
-        elif self.tipo == "AUTO":
-            return "\t"*nivel + f"self.{self.atributos['identificador']} = Auto({self.atributos['flotante1']}, {self.atributos['flotante2']}, {self.atributos['flotante3']}, {self.atributos['flotante4']}, {self.atributos['flotante5']})\n"
+        elif nodo.tipo is TipoNodo.VARIABLE:
+            print("VARIABLE 15")
+            resultado = self.visitarVariable(nodo)
+
+        elif nodo.tipo is TipoNodo.RETORNO:
+            print("RETORNO 16")
+            resultado = self.visitarRetorno(nodo)
         
-        elif self.tipo == "FUNCION":
-            parametros = ", ".join([f"{param.generar()}: {tipo}" for param, tipo in zip(self.atributos["parametros"], self.atributos["tipos"])])
-            codigo = "\t"*nivel + f"def {self.atributos['identificador']}({parametros}):\n"
-            for instruccion in self.atributos["instrucciones"]:
-                codigo += instruccion.generar(nivel + 1)
-            if 'retorno' in self.atributos:
-                codigo += "\t"*(nivel+1) + f"return {self.atributos['retorno'].generar()}\n"
-            return codigo
+        elif nodo.tipo is TipoNodo.INSTRUCCIONES:
+            print("INSTRUCCIONES 17")
+            resultado = self.visitarInstrucciones(nodo)
+        
+        elif nodo.tipo is TipoNodo.CONDICIONES:
+            print("CONDICIONES 18")
+            resultado = self.visitarCondiciones(nodo)
+        
+        elif nodo.tipo is TipoNodo.CICLOS:
+            print("CICLOS 19")
+            resultado = self.visitarCiclos(nodo)
+
+        elif nodo.tipo is TipoNodo.INSTRUCCION:
+            print("INSTRUCCION 20")
+            resultado = self.visitarInstruccion(nodo)
+        
+        elif nodo.tipo is TipoNodo.DECLARACION_VARIABLE:
+            print("DECLARACION_VARIABLE 21")
+            resultado = self.visitarDeclaracionVariable(nodo)
+        
+        elif nodo.tipo is TipoNodo.ASIGNACION:
+            print("ASIGNACION 22")
+            resultado = self.visitarAsignacion(nodo)
+        
+        elif nodo.tipo is TipoNodo.EXPRESION:
+            print("EXPRESION 23")
+            resultado = self.visitarExpresion(nodo)
+        
+        elif nodo.tipo is TipoNodo.OPERADOR:
+            print("OPERADOR 24")
+            resultado = self.visitarOperador(nodo)
+        
+        elif nodo.tipo is TipoNodo.ARGUMENTOS:
+            print("ARGUMENTOS 25")
+            resultado = self.visitarArgumentos(nodo)
+        
+        elif nodo.tipo is TipoNodo.AGRUPACION:
+            print("AGRUPACION 26")
+            resultado = self.visitarAgrupacion(nodo)
+
+        elif nodo.tipo is TipoNodo.ACCESO_LISTA:
+            print("ACCESO_LISTA 27")
+            resultado = self.visitarAccesoLista(nodo)
+
+        elif nodo.tipo is TipoNodo.VALOR:
+            print("VALOR 28")
+            resultado = self.visitarValor(nodo)
+        
+        elif nodo.tipo is TipoNodo.TIPO_INGENIERO:
+            print("TIPO_INGENIERO 29")
+            resultado = self.visitarTipoIngeniero(nodo)
+        
+        elif nodo.tipo is TipoNodo.CONDICIONESOUT:
+            print("CONDICIONESOUT 30")
+            resultado = self.visitarCondicionesOut(nodo)
+
+        return resultado
+
+    def visitarCampeonato(self, nodo):
+        print()
+        instrucciones = []
+        #print('  ' * nivel + str(nodo))
+        for hijo in nodo.hijos:
+            instrucciones.append(self.visitar(hijo))
+        return '\n'.join(instrucciones)
+
+    def visitarEscuderia(self, nodo):
+        instrucciones = []
+        self.incrementarTabuladores()
+        for hijo in nodo.hijos:
+            instrucciones.append(self.retornarTabuladores() + self.visitar(hijo))
+        self.decrementarTabuladores()
+        return 'escuderia ' + nodo.lexema + ' {\n' + '\n'.join(instrucciones) + '\n' + self.retornarTabuladores() + '}'
+
+    def visitarMiembros(self, nodo):
+        instrucciones = []
+        for hijo in nodo.hijos:
+            instrucciones.append(self.visitar(hijo))
+        return '\n'.join(instrucciones)
     
-        elif self.tipo == "RETORNO":
-            return "\t"*nivel + f"return {self.atributos['expresion'].generar()}\n"
-
-        elif self.tipo == "INSTRUCCIONES":
-            codigo = ""
-            for condicion in self.atributos["condiciones"]:
-                codigo += condicion.generar(nivel)
-            for ciclo in self.atributos["ciclos"]:
-                codigo += ciclo.generar(nivel)
-            for instruccion in self.atributos["instrucciones"]:
-                codigo += instruccion.generar(nivel)
-            return codigo
+    def visitarPiloto(self, nodo):
+        return f'piloto {nodo.lexema} {"".join(self.visitar(hijo) for hijo in nodo.hijos)};'
     
-        elif self.tipo == "CONDICIONES":
-            return f"if {self.atributos['expresion'].generar()}:\n\t{self.atributos['instrucciones'].generar()}\nelse:\n\t{self.atributos['instrucciones'].generar()}\n"
-
-        elif self.tipo == "CICLOS":
-            return f"while {self.atributos['expresion'].generar()}:\n\t{self.atributos['instrucciones'].generar()}\n"
-
-        elif self.tipo == "INSTRUCCION":
-            return f"{self.atributos['declaracionVariable'].generar()};\n{self.atributos['asignacion'].generar()};\n{self.atributos['llamadaFuncion'].generar()};\n"
-
-        elif self.tipo == "DECLARACIONVARIABLE":
-            return f"{self.atributos['tipoDato']} {self.atributos['asignacion'].generar()}"
-
-        elif self.tipo == "ASIGNACION":
-            return f"{self.atributos['identificador']} = {self.atributos['expresion'].generar()}"
+    def visitarDirector(self, nodo):
+        return f'director {nodo.lexema} {"".join(self.visitar(hijo) for hijo in nodo.hijos)};'
     
-        elif self.tipo == "EXPRESION":
-            return f"({self.atributos['valor'].generar()} {self.atributos['operador']} {self.atributos['expresion'].generar()})" if self.atributos.get('operador') else f"{self.atributos['valor'].generar()}"
-
-        elif self.tipo == "LLAMADA_FUNCION":
-            parametros = ", ".join([param.generar() for param in self.atributos["parametros"] if param.tipo != "COMA"])
-            if self.atributos["identificador"] == "imprimir":
-                return "\t"*nivel + f"print({parametros})\n"
-            return "\t"*nivel + f"{self.atributos['identificador']}({parametros})\n"
-        
-        elif self.tipo == "PARAMETRO":
-            return f"{self.atributos['tipoDato']} {self.atributos['identificador']},"
-        
-        elif self.tipo == "PARAMETROS":
-            return ", ".join(f"{param['tipoDato']} {param['identificador']}" for param in self.atributos)
-        
-        elif self.tipo == "TIPO_DATO":
-            return self.contenido
+    def visitarIngeniero(self, nodo):
+        return f'ingeniero {nodo.lexema} {nodo.hijos[0]};'
     
-        elif self.tipo == "VARIABLE":
-            return self.contenido
-        
-        elif self.tipo == "OPERADOR":
-            return self.contenido
-        
-        elif self.tipo == "ARGUMENTOS":
-            return self.contenido
-        
-        elif self.tipo == "AGRUPACION":
-            return self.contenido
+    def visitarRecursos(self, nodo):
+        instrucciones = []
+        for hijo in nodo.hijos:
+            instrucciones.append(self.visitar(hijo))
+        return '\n'.join(instrucciones)
+
+    def visitarPresupuesto(self, nodo):
+        return f'presupuesto {nodo.lexema};'
+
+    def visitarCapital(self, nodo):
+        return f'capital {nodo.lexema};'
+
+    def visitarAuto(self, nodo):
+        return f'auto {nodo.lexema} {"".join(self.visitar(hijo) for hijo in nodo.hijos)};'
+
+    def visitarFuncion(self, nodo):
+        instrucciones = []
+        self.incrementarTabuladores()
+        for hijo in nodo.hijos:
+            instrucciones.append(self.visitar(hijo))
+        self.decrementarTabuladores()
+        return 'orden ' + nodo.lexema + ' (' + self.visitar(nodo.hijos[0]) + ') {\n' + '\n'.join(instrucciones[1:]) + '\n' + self.retornarTabuladores() + '}'
+ 
+    def visitarLlamadaFuncion(self, nodo):
+        argumentos = ', '.join(self.visitar(hijo) for hijo in nodo.hijos)
+        return f'{nodo.lexema}({argumentos});'
+
+    def visitarParametros(self, nodo):
+        parametros = ', '.join(self.visitar(hijo) for hijo in nodo.hijos)
+        return parametros
     
-        elif self.tipo == "ACCESO_LISTA":
-            return f"{self.atributos['identificador']}[{self.atributos['expresion'].generar()}]"
-        
-        elif self.tipo == "TIPO_INGENIERO":
-            return self.atributos['tipo']
+    def visitarParametro(self, nodo):
+        return f'{self.visitar(nodo.hijos[0])} {nodo.lexema}'
+    
+    def visitarTipoDato(self, nodo):
+        return nodo.lexema
 
-        elif self.tipo == "VALOR":
-            return self.contenido
+    def visitarVariable(self, nodo):
+        if len(nodo.hijos) > 0:
+            return f"{nodo.lexema} {self.visitar(nodo.hijos[0])} {self.visitar(nodo.hijos[1])}"
+        return f'{nodo.lexema}'
 
+    def visitarRetorno(self, nodo):
+        return f'confirmacion {self.visitar(nodo.hijos[0])}'
 
-        def __repr__(self):
-            return str(self)
+    def visitarInstrucciones(self, nodo):
+        instrucciones = []
+        self.incrementarTabuladores()
+        for hijo in nodo.hijos:
+            instrucciones.append(self.retornarTabuladores() + self.visitar(hijo))
+        self.decrementarTabuladores()
+        return '\n'.join(instrucciones)
+
+    def visitarCondiciones(self, nodo):
+        instrucciones = []
+        self.incrementarTabuladores()
+        for hijo in nodo.hijos:
+            instrucciones.append(self.retornarTabuladores() + self.visitar(hijo))
+        self.decrementarTabuladores()
+        return 'box (' + self.visitar(nodo.hijos[0]) + ') {\n' + '\n'.join(instrucciones[1:]) + '\n' + self.retornarTabuladores() + '}'
+    
+    def visitarCondicionesOut(self, nodo):
+        instrucciones = []
+        self.incrementarTabuladores()
+        for hijo in nodo.hijos:
+            instrucciones.append(self.retornarTabuladores() + self.visitar(hijo))
+        self.decrementarTabuladores()
+        return '} out {\n' + '\n'.join(instrucciones) 
+
+    def visitarCiclos(self, nodo):
+        instrucciones = []
+        self.incrementarTabuladores()
+        for hijo in nodo.hijos:
+            instrucciones.append(self.visitar(hijo))
+        self.decrementarTabuladores()
+        return 'circuito (' + self.visitar(nodo.hijos[0]) + ') {\n' + '\n'.join(instrucciones[1:]) + '\n' + self.retornarTabuladores() + '}'  
+
+    def visitarInstruccion(self, nodo):
+        instrucciones = []
+        for hijo in nodo.hijos:
+            instrucciones.append(self.visitar(hijo))
+        return '\n'.join(instrucciones)
+
+    def visitarDeclaracionVariable(self, nodo):
+        return f'{self.visitar(nodo.hijos[0])} {self.visitar(nodo.hijos[1])};'
+
+    def visitarAsignacion(self, nodo):
+        return f'{self.visitar(nodo.hijos[0])} = {self.visitar(nodo.hijos[1])}'
+    
+    def visitarExpresion(self, nodo):
+        print(self.tabuladores)
+        if len(nodo.hijos) > 0:
+            return f"{nodo.lexema} {self.visitar(nodo.hijos[0])} {self.visitar(nodo.hijos[1])};"
+        return f'{nodo.lexema}'
+        #return f'{nodo.lexema};'
+
+    def visitarOperador(self, nodo):
+        return f"{nodo.lexema}"
+
+    def visitarArgumentos(self, nodo):
+        return ', '.join(self.visitar(hijo) for hijo in nodo.hijos)
+
+    def visitarAgrupacion(self, nodo):
+        return f'({self.visitar(nodo.hijos[0])})'
+    
+    def visitarAccesoLista(self, nodo):
+        hijos_visitados = [self.visitar(hijo) for hijo in nodo.hijos]
+        return f'{nodo.lexema}[{", ".join(hijos_visitados)}]'
+
+    def visitarValor(self, nodo):
+        return f' {nodo.lexema}'
+    
+    def visitarTipoIngeniero(self, nodo):
+        return f' {nodo.lexema}'
+    
+    def retornarTabuladores(self):
+        return " " * self.tabuladores
+
+    def incrementarTabuladores(self):
+        self.tabuladores += 1
+
+    def decrementarTabuladores(self):
+        self.tabuladores -= 1
