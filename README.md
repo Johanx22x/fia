@@ -23,3 +23,19 @@ lenguaje, el encargado de generar los componentes léxicos.
 
 En esta carpeta se encuentran los archivos relacionados con las utilidades
 necesarias para el proyecto, manejo de errores, etc.
+
+### `analizador`:
+
+En esta carpeta se encuentran los archivos relacionados con el analizador
+sintáctico del lenguaje, el encargado de generar el árbol de análisis.
+
+### `verificador`:
+
+En esta carpeta se encuentran los archivos relacionados con el verificador del
+lenguaje, el encargado de verificar la semántica del código.
+
+### `generador`:
+
+En esta carpeta se encuentran los archivos relacionados con el generador de 
+código del lenguaje, el encargado de generar el código Python a partir del
+código FIA.

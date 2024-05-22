@@ -482,12 +482,14 @@ class Analizador:
 
             if self.tokens.peek().tipo == TipoToken.PALABRAS_RESERVADAS and self.tokens.peek().lexema == 'out':
                 token = next(self.tokens)
+                nodoOut = Nodo(TipoNodo.CONDICIONES_OUT, '')
                 token = next(self.tokens)
 
                 if token.tipo != TipoToken.CORCHETE_IZQ:
                     raise ErrorAnalisis('Se esperaba un corchete izquierdo', token)
 
-                nodo.hijos.append(self.instrucciones())
+                nodoOut.hijos.append(self.instrucciones())
+                nodo.hijos.append(nodoOut)
 
             return nodo
 

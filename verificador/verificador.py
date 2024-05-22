@@ -153,6 +153,10 @@ class Visitante:
         for hijo in nodo.hijos:
             self.visitar(hijo)
 
+    def visitar_condiciones_out(self, nodo: Nodo) -> None:
+        for hijo in nodo.hijos:
+            self.visitar(hijo)
+
     def visitar_variable(self, nodo: Nodo) -> None:
         nombre = nodo.lexema
         self.tabla_simbolos.buscar_simbolo(nombre)

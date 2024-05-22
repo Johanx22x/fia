@@ -1,6 +1,10 @@
 circuito (palabra[inicio == palabra[fin]]) {
   box (inicio >= fin) {
     confirmacion verdadero;
+  } out {
+    box (bebez == bebe) {
+        confirmacion verdadero;
+    }
   }
   
   inicio = inicio + 1;
