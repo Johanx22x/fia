@@ -17,11 +17,11 @@ def main():
     explorador = Explorador(codigo_fuente)
     tokens = explorador.tokenizar()
 
-    for token in tokens:
-        print(token)
+    # for token in tokens:
+    #     print(token)
 
-    print()
-    print()
+    # print()
+    # print()
 
     # Analizar los tokens
     analizador = Analizador(tokens)
@@ -34,9 +34,7 @@ def main():
     # print(verificador.tabla_simbolos)
 
     generador = Generador(arbol)
-    codigo_python = generador.generar()
-    generador.generar()
-    print(codigo_python)
+    print(generador.generar())
 
 
 if __name__ == "__main__":
