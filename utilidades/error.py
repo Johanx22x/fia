@@ -86,3 +86,25 @@ class ErrorAnalisis(Exception):
         error = f"Error de análisis: {self.descripcion}"
         error += f" en la línea {self.token.linea} y columna {self.token.columna}.\n"
         return error
+
+
+class ErrorSemantico(Exception):
+    """Clase usada para representar un error semántico encontrado en el código fuente a traves del verificador."""
+    def __init__(self, simbolo: str, descripcion: str) -> None:
+        """Inicializa un objeto de la clase Error.
+
+        Args:
+            simbolo (str): El simbolo donde se encontró el error.
+            descripcion (str): La descripción del error encontrado en el código fuente.
+        """
+        self.simbolo = simbolo
+        self.descripcion = descripcion
+
+    def __str__(self) -> str:
+        """Representa el objeto como un string.
+
+        Returns:
+            str: El objeto representado como un string.
+        """
+        error = f"Error semántico: {self.simbolo} {self.descripcion}"
+        return error

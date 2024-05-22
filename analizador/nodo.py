@@ -32,6 +32,7 @@ class TipoNodo(Enum):
     ACCESO_LISTA = auto()
     VALOR = auto()
     TIPO_INGENIERO = auto()
+    TIPO_RETORNO = auto()
     CONDICIONES_OUT = auto()
 
 class Nodo:

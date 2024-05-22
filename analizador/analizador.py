@@ -321,8 +321,7 @@ class Analizador:
         nodo.hijos.append(self.parametros())
 
         if self.tokens.peek().tipo == TipoToken.PARENTESIS_CUADRADO_IZQ:
-            while next(self.tokens).tipo != TipoToken.PARENTESIS_CUADRADO_DER:
-                continue
+            nodo.hijos.append(self.tipo_retorno())
 
         try:
             token = next(self.tokens)
@@ -340,6 +339,24 @@ class Analizador:
 
         return nodo
 
+    def tipo_retorno(self):
+        """Analiza el tipo de retorno de una función."""
+        try:
+            next(self.tokens)
+            token = next(self.tokens)
+            next(self.tokens)
+
+            if token.tipo != TipoToken.TIPO_DATO:
+                raise ErrorAnalisis('Se esperaba un tipo de dato', token)
+
+            return Nodo(TipoNodo.TIPO_RETORNO, token.lexema)
+        except StopIteration:
+            print("Error de análisis: Estructura de tipo de retorno incompleta.")
+            exit(-1)
+        except ErrorAnalisis as error:
+            print(error)
+            exit(-1)
+
     def parametros(self):
         """Analiza los parámetros de una función."""
         try:
@@ -354,15 +371,16 @@ class Analizador:
 
         while True:
             try:
-                token = next(self.tokens)
-
-                if token.tipo == TipoToken.PARENTESIS_DER:
+                if self.tokens.peek().tipo == TipoToken.PARENTESIS_DER:
+                    next(self.tokens)
                     break
-                elif token.tipo == TipoToken.TIPO_DATO:
+                elif self.tokens.peek().tipo == TipoToken.TIPO_DATO:
                     nodo.hijos.append(self.parametro())
-                elif token.tipo == TipoToken.COMA:
+                elif self.tokens.peek().tipo == TipoToken.COMA:
+                    next(self.tokens)
                     continue
                 else:
+                    token = next(self.tokens)
                     raise ErrorAnalisis('Se esperaba un tipo de dato o una coma', token)
             except StopIteration:
                 break
@@ -375,6 +393,11 @@ class Analizador:
     def parametro(self):
         """Analiza un parámetro de una función."""
         try:
+            tipo_dato = next(self.tokens)
+
+            if tipo_dato.tipo != TipoToken.TIPO_DATO:
+                raise ErrorAnalisis('Se esperaba un tipo de dato', tipo_dato)
+
             token = next(self.tokens)
 
             if token.tipo != TipoToken.IDENTIFICADOR:
@@ -384,6 +407,8 @@ class Analizador:
             exit(-1)
 
         nodo = Nodo(TipoNodo.PARAMETRO, token.lexema)
+
+        nodo.hijos.append(Nodo(TipoNodo.TIPO_DATO, tipo_dato.lexema))
 
         return nodo
 
@@ -457,7 +482,7 @@ class Analizador:
 
             if self.tokens.peek().tipo == TipoToken.PALABRAS_RESERVADAS and self.tokens.peek().lexema == 'out':
                 token = next(self.tokens)
-                nodoOut = Nodo(TipoNodo.CONDICIONESOUT, '')
+                nodoOut = Nodo(TipoNodo.CONDICIONES_OUT, '')
                 token = next(self.tokens)
 
                 if token.tipo != TipoToken.CORCHETE_IZQ:
