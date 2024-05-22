@@ -32,6 +32,7 @@ class TipoNodo(Enum):
     ACCESO_LISTA = auto()
     VALOR = auto()
     TIPO_INGENIERO = auto()
+    TIPO_RETORNO = auto()
 
 class Nodo:
     """Nodo de un árbol sintáctico abstracto."""

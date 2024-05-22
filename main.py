@@ -1,5 +1,6 @@
 from explorador.explorador import Explorador
 from analizador.analizador import Analizador
+from verificador.verificador import Verificador
 
 # TODO: Implementar el uso de argparse
 # para modificar el comportamiento del programa
@@ -9,25 +10,28 @@ def init():
 
 def main():
     # Obtener el código fuente del archivo
-    with open("./gramatica/ejercicio15.fia", "r") as file:
+    with open("./gramatica/ejercicio13.fia", "r") as file:
         codigo_fuente = file.read()
 
     # Tokenizar el código fuente
     explorador = Explorador(codigo_fuente)
     tokens = explorador.tokenizar()
 
-    for token in tokens:
-        print(token)
+    # for token in tokens:
+    #     print(token)
 
-    print()
-    print()
+    # print()
+    # print()
 
     # Analizar los tokens
     analizador = Analizador(tokens)
     arbol = analizador.analizar()
     arbol.imprimir()
 
-    # TODO: Verificación del árbol
+    # Verificar la semántica del código
+    verificador = Verificador(arbol)
+    verificador.verificar()
+    # print(verificador.tabla_simbolos)
 
     # TODO: Generación de código Python
 
