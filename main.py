@@ -37,6 +37,9 @@ def main():
     verificador.verificar()
     print(verificador.tabla_simbolos)
 
+    print()
+    print()
+
     # Generar el código Python
     generador = Generador(arbol)
     print(generador.generar())

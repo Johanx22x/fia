@@ -304,7 +304,7 @@ class Visitante:
 
         try:
             if self.retornos[-1] != self.expresiones[-1].obtener_tipo():
-                raise ErrorSemantico(f"retorno [{', '.join(self.expresiones[-1])}]", f"no coincide con el tipo {self.retornos[-1]}")
+                raise ErrorSemantico(f"retorno [{', '.join(self.expresiones[-1].expresion)}]", f"no coincide con el tipo {self.retornos[-1]}")
             self.expresiones = self.expresiones[:-1]
         except ErrorSemantico as error:
             print(error)
