@@ -82,6 +82,11 @@ class Visitante:
         """Visita un nodo de tipo función."""
         instrucciones = []
         self.incrementar_tabuladores()
+        if len(nodo.hijos) > 2:
+            for hijo in nodo.hijos[1:]:
+                instrucciones.append(self.visitar(hijo))
+            self.decrementar_tabuladores()
+            return 'orden ' + nodo.lexema + ' (' + self.visitar(nodo.hijos[0]) + ') ' + self.visitar(nodo.hijos[1]) + ' {\n' + '\n'.join(instrucciones[1:]) + '\n' + self.retornar_tabuladores() + '}'
         for hijo in nodo.hijos:
             instrucciones.append(self.visitar(hijo))
         self.decrementar_tabuladores()
@@ -114,6 +119,10 @@ class Visitante:
     def visitar_retorno(self, nodo: Nodo) -> str:
         """Visita un nodo de tipo retorno."""
         return f'confirmacion {self.visitar(nodo.hijos[0])}'
+
+    def visitar_tipo_retorno(self, nodo: Nodo) -> str:
+        """Visita un nodo de tipo tipo_retorno."""
+        return f'[{nodo.lexema}]'
 
     def visitar_instrucciones(self, nodo: Nodo) -> str:
         """Visita un nodo de tipo instrucciones."""
