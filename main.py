@@ -11,32 +11,35 @@ def init():
 
 def main():
     # Obtener el código fuente del archivo
-    with open("./gramatica/ejercicio1.fia", "r") as file:
+    with open("./gramatica/ejercicio13.fia", "r") as file:
         codigo_fuente = file.read()
 
     # Tokenizar el código fuente
     explorador = Explorador(codigo_fuente)
     tokens = explorador.tokenizar()
 
-    # for token in tokens:
-    #     print(token)
+    for token in tokens:
+        print(token)
 
-    # print()
-    # print()
+    print()
+    print()
 
     # Analizar los tokens
     analizador = Analizador(tokens)
     arbol = analizador.analizar()
-    # arbol.imprimir()
+    arbol.imprimir()
+
+    print()
+    print()
 
     # Verificar la semántica del código
     verificador = Verificador(arbol)
     verificador.verificar()
-    # print(verificador.tabla_simbolos)
+    print(verificador.tabla_simbolos)
 
     # Generar el código Python
     generador = Generador(arbol)
-    # print(generador.generar())
+    print(generador.generar())
 
 
 if __name__ == "__main__":
