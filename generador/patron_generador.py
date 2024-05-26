@@ -9,11 +9,6 @@ class Visitante:
     instrucciones1 = []
 
     activadoEscuderia = False
-    activadoPiloto = False
-    activadoDirector = False
-    activarIngeniero = False
-    activarAuto = False
-
     activandoEscuderiaAux = False
 
     def retornar_tabuladores(self) -> str:
