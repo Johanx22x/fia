@@ -1,7 +1,16 @@
-orden bisiesto(entero ANIO) [booleano] {
-    box (ANIO % 4 == 0 && (((ANIO % 100 != 0) || ANIO % 400 == 0))) {
-      	confirmacion ;
-    } out {
-        confirmacion falso;
-    }
+orden contieneCaracter(cadena palabra, entero longitud_palabra, cadena c) [booleano] {
+    entero i = 0;
+
+    circuito (i < longitud_palabra) {
+        box (palabra[i + 1] == c) {
+            confirmacion verdadero;
+        } out {
+            box (palabra[i] == c) {
+                confirmacion verdadero;
+            }
+
+        i = i + 1;
+        }
+    confirmacion falso;
+    }   
 }

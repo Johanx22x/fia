@@ -11,7 +11,7 @@ def init():
 
 def main():
     # Obtener el código fuente del archivo
-    with open("./gramatica/ejercicio13.fia", "r") as file:
+    with open("./gramatica/ejercicio17.fia", "r") as file:
         codigo_fuente = file.read()
 
     # Tokenizar el código fuente
