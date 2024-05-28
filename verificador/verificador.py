@@ -45,7 +45,7 @@ class Expresion:
             return "FLOTANTE"
         elif item == "verdadero" or item == "falso":
             return "BOOLEANO"
-        elif item.replace("_", "").isalnum():
+        elif item.replace("_", "").replace('"', "").replace("'", "").replace(" ", "").isalpha():
             simbolo = self.visitante.tabla_simbolos.buscar_simbolo_soft(item)
             if simbolo:
                 return simbolo.tipo.name
@@ -57,8 +57,8 @@ class Expresion:
         tipos = [self.obtener_tipo_helper(item) for item in self.expresion]
 
         # Si hay un tipo diferente a los demás, disparar un error
-        if len(set(tipos)) > 1:
-            raise ErrorSemantico("[" + ', '.join(self.expresion) + "]", "tipos incompatibles en la expresión")
+        # if len(set(tipos)) > 1:
+        #     raise ErrorSemantico("[" + ', '.join(self.expresion) + "]", "tipos incompatibles en la expresión")
 
         if self.tipo == TipoExpresion.LOGICA:
             return "BOOLEANO"
@@ -193,13 +193,17 @@ class Visitante:
     def visitar_llamada_funcion(self, nodo: Nodo) -> None:
         nombre = nodo.lexema
         self.tabla_simbolos.buscar_simbolo(nombre)
+        if len(self.expresiones) != 0:
+            self.expresiones[-1].push(nombre)
 
         for hijo in nodo.hijos:
             self.visitar(hijo)
 
     def visitar_argumentos(self, nodo: Nodo) -> None:
+        self.expresiones.append(Expresion(self, TipoExpresion.ARITMETICA, []))
         for hijo in nodo.hijos:
             self.visitar(hijo)
+        self.expresiones.pop()
 
     def visitar_parametro(self, nodo: Nodo) -> None:
         nombre = nodo.lexema

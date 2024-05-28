@@ -13,7 +13,7 @@ class Visitante:
 
     def retornar_tabuladores(self) -> str:
         """Retorna una cadena con la cantidad de tabuladores necesarios."""
-        return " " * self.tabuladores
+        return "\t" * self.tabuladores
 
     def incrementar_tabuladores(self) -> None:
         """Incrementa la cantidad de tabuladores."""

@@ -1,6 +1,6 @@
 """generador.py: Generador de codigo Python"""
 
-from generador.patron_generador import Visitante
+from generador.visitante import Visitante
 
 class Generador:
     """Generador de codigo Python"""

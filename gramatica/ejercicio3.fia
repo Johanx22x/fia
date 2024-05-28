@@ -8,12 +8,12 @@ entero siguiente = 0;
 
 entero recorrido = 1
 circuito (recorrido <= numero) {
-  radio(recorrido + ". El numero es: " + primero);
+  radio(recorrido, ". El numero es: ", primero);
                                  
   siguiente = primero + segundo;
     
   primero = segundo;
-  segundo = primero;
+  segundo = siguiente;
     
   recorrido = recorrido + 1;
 }
