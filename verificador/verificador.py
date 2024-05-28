@@ -12,6 +12,7 @@ from analizador.nodo import Nodo
 
 BUILT_IN_FUNCTIONS = [
         {'nombre': 'radio', 'tipo': TipoSimbolo.NINGUNO},
+        {'nombre': 'aleatorio', 'tipo': TipoSimbolo.ENTERO},
     ]
 
 

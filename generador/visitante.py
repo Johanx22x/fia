@@ -7,6 +7,7 @@ from analizador.nodo import Nodo, TipoNodo
 
 BUILD_IN_FUNCTIONS = {
         "radio": "print",
+        "aleatorio": "random.randint",
         }
 
 OPERATORS = {
@@ -19,7 +20,9 @@ EXPRESSIONS = {
     "falso": "False",
     }
 
-ESCUDERIA = """ 
+DEPENDENCIA = """ 
+import random
+
 class Escuderia:
     def __init__(self, nombre, pilotos=[], directores=[], ingenieros=[], presupuesto=0, capital=0, autos=[]) -> None:
         self.nombre = nombre
@@ -70,7 +73,6 @@ class Auto:
 
 class Visitante:
     """Clase que visita los nodos del árbol sintáctico abstracto."""
-    escuderia_declarada = False
     tab = "\t"
     tabs = 0
 
@@ -92,7 +94,7 @@ class Visitante:
 
     def visitar_campeonato(self, nodo: Nodo) -> str:
         """Visita un nodo de tipo CAMPEONATO."""
-        codigo = ""
+        codigo = DEPENDENCIA
         for hijo in nodo.hijos:
             codigo += self.visitar(hijo)
         return codigo
@@ -100,9 +102,6 @@ class Visitante:
     def visitar_escuderia(self, nodo: Nodo) -> str:
         """Visita un nodo de tipo ESCUDERIA."""
         codigo = ""
-        if not self.escuderia_declarada:
-            self.escuderia_declarada = True
-            codigo = ESCUDERIA
 
         codigo += f"{self.tab * self.tabs}{nodo.lexema} = Escuderia('{nodo.lexema}',\n"
         self.tabs += 1
