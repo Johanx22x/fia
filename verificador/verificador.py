@@ -57,8 +57,8 @@ class Expresion:
         tipos = [self.obtener_tipo_helper(item) for item in self.expresion]
 
         # Si hay un tipo diferente a los demás, disparar un error
-        # if len(set(tipos)) > 1:
-        #     raise ErrorSemantico("[" + ', '.join(self.expresion) + "]", "tipos incompatibles en la expresión")
+        if len(set(tipos)) > 1:
+            raise ErrorSemantico("[" + ', '.join(self.expresion) + "]", "tipos incompatibles en la expresión")
 
         if self.tipo == TipoExpresion.LOGICA:
             return "BOOLEANO"
@@ -231,10 +231,9 @@ class Visitante:
             sys.exit(1)
 
     def visitar_ciclos(self, nodo: Nodo) -> None:
+        self.tabla_simbolos.abrir_alcance()
         self.expresiones.append(Expresion(self, TipoExpresion.LOGICA, []))
-
-        for hijo in nodo.hijos:
-            self.visitar(hijo)
+        self.visitar(nodo.hijos[0])
 
         try:
             if self.expresiones[-1].obtener_tipo() != "BOOLEANO":
@@ -244,7 +243,13 @@ class Visitante:
             print(error)
             sys.exit(1)
 
+        for hijo in nodo.hijos[1:]:
+            self.visitar(hijo)
+
+        self.tabla_simbolos.cerrar_alcance()
+
     def visitar_condiciones(self, nodo: Nodo) -> None:
+        self.tabla_simbolos.abrir_alcance()
         self.expresiones.append(Expresion(self, TipoExpresion.LOGICA, []))
 
         for hijo in nodo.hijos:
@@ -258,9 +263,13 @@ class Visitante:
             print(error)
             sys.exit(1)
 
+        self.tabla_simbolos.cerrar_alcance()
+
     def visitar_condiciones_out(self, nodo: Nodo) -> None:
+        self.tabla_simbolos.abrir_alcance()
         for hijo in nodo.hijos:
             self.visitar(hijo)
+        self.tabla_simbolos.cerrar_alcance()
 
     def visitar_variable(self, nodo: Nodo) -> None:
         nombre = nodo.lexema

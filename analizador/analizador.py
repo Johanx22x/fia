@@ -447,6 +447,10 @@ class Analizador:
                         nodo.hijos.append(self.ciclos())
                     elif token.lexema == 'confirmacion':
                         nodo.hijos.append(self.retorno())
+                    elif token.lexema == 'escuderia':
+                        nodo.hijos.append(self.escuderia())
+                    elif token.lexema == 'orden':
+                        nodo.hijos.append(self.funcion())
                 elif token.tipo == TipoToken.TIPO_DATO:
                     nodo.hijos.append(self.declaracion_variable(token))
                 elif token.tipo == TipoToken.IDENTIFICADOR:
@@ -711,6 +715,7 @@ class Analizador:
     def expresion_llamada_funcion(self, token):
         """Analiza una expresión de una llamada a función."""
         try:
+            print(token)
             if token.tipo == TipoToken.ENTERO or token.tipo == TipoToken.FLOTANTE or token.tipo == TipoToken.BOOLEANO or token.tipo == TipoToken.CADENA:
                 nodo = Nodo(TipoNodo.EXPRESION, token.lexema)
             elif token.tipo == TipoToken.IDENTIFICADOR:
