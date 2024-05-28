@@ -5,3 +5,5 @@ circuito (contador < 10) {
     entero contador_suma = contador + 1
     radio("Contador suma:", contador_suma)
 }
+
+entero random = aleatorio(1, 10);

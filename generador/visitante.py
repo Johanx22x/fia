@@ -20,8 +20,7 @@ EXPRESSIONS = {
     "falso": "False",
     }
 
-DEPENDENCIA = """ 
-import random
+DEPENDENCIA = """import random
 
 class Escuderia:
     def __init__(self, nombre, pilotos=[], directores=[], ingenieros=[], presupuesto=0, capital=0, autos=[]) -> None:

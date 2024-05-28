@@ -715,7 +715,6 @@ class Analizador:
     def expresion_llamada_funcion(self, token):
         """Analiza una expresión de una llamada a función."""
         try:
-            print(token)
             if token.tipo == TipoToken.ENTERO or token.tipo == TipoToken.FLOTANTE or token.tipo == TipoToken.BOOLEANO or token.tipo == TipoToken.CADENA:
                 nodo = Nodo(TipoNodo.EXPRESION, token.lexema)
             elif token.tipo == TipoToken.IDENTIFICADOR:
