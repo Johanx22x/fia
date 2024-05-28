@@ -12,6 +12,6 @@ escuderia Ferrari {
 entero numero = 1;
 
 circuito (numero < 10) {
-    radio(numero)
+    radio(numero, "jaja")
     numero = numero + 1;
 }

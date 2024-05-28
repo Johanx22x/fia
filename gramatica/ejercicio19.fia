@@ -1,0 +1,7 @@
+entero contador = 0;
+radio("Contador: ", contador);
+
+circuito (contador < 10) {
+    entero contador_suma = contador + 1
+    radio("Contador suma:", contador_suma)
+}

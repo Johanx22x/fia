@@ -1,0 +1,7 @@
+entero numero = 1;
+flotante decimal = 1.1;
+cadena hola = "hola";
+booleano verdad = verdadero;
+
+entero suma = numero + 1;
+flotante suma_decimal = decimal + 1.0;
