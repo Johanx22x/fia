@@ -1,0 +1,69 @@
+import random
+
+class Escuderia:
+    def __init__(self, nombre, pilotos=[], directores=[], ingenieros=[], presupuesto=0, capital=0, autos=[]) -> None:
+        self.nombre = nombre
+        self.pilotos = pilotos
+        self.directores = directores
+        self.ingenieros = ingenieros
+        self.presupuesto = presupuesto
+        self.capital = capital
+        self.autos = autos
+
+    def __str__(self) -> str:
+        return f"Escuderia: {self.nombre}"
+
+class Piloto:
+    def __init__(self, nombre, *stats) -> None:
+        self.nombre = nombre
+        self.stats = stats
+
+    def __str__(self) -> str:
+        return f"Piloto: {self.nombre}"
+
+class Director:
+    def __init__(self, nombre, *stats) -> None:
+        self.nombre = nombre
+        self.stats = stats
+
+    def __str__(self) -> str:
+        return f"Director: {self.nombre}"
+
+class Ingeniero:
+    def __init__(self, nombre, especialidad) -> None:
+        self.nombre = nombre
+        self.especialidad = especialidad
+
+    def __str__(self) -> str:
+        return f"Ingeniero: {self.nombre}"
+
+class Auto:
+    def __init__(self, modelo, *stats) -> None:
+        self.modelo = modelo
+        self.stats = stats
+
+    def __str__(self) -> str:
+        return f"Auto: {self.modelo}"
+
+meta = 100
+A = 0
+B = 0
+t = 0
+mueveA = 0
+mueveB = 0
+while (A < meta and B < meta):
+	mueveA = random.randint(3,3)
+	A = A + mueveA
+	mueveB = random.randint(1,3)
+	B = B + mueveB
+	t = t + 1
+
+gana = 0
+if A > B:
+	gana = 1
+
+if B > A:
+	gana = 2
+
+print("Gano el caracol: ",gana)
+print("Tiempo transcurrido: ",t)

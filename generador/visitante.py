@@ -331,9 +331,9 @@ class Visitante:
         """Visita un nodo de tipo LLAMADA_FUNCION."""
         codigo = ""
         if nodo.lexema in BUILD_IN_FUNCTIONS:
-            codigo += f"{self.tab * self.tabs}{BUILD_IN_FUNCTIONS[nodo.lexema]}("
+            codigo += f"{BUILD_IN_FUNCTIONS[nodo.lexema]}("
         else:
-            codigo += f"{self.tab * self.tabs}{nodo.lexema}("
+            codigo += f"{nodo.lexema}("
         codigo += self.visitar(nodo.hijos[0])
         codigo += ")"
         for hijo in nodo.hijos[1:]:
@@ -342,8 +342,6 @@ class Visitante:
 
     def visitar_argumentos(self, nodo: Nodo) -> str:
         """Visita un nodo de tipo ARGUMENTOS."""
-        codigo = ""
-        for hijo in nodo.hijos:
-            codigo += self.visitar(hijo)
-            codigo += ", "
+        argumentos = [self.visitar(hijo) for hijo in nodo.hijos]
+        codigo = ",".join(argumentos)
         return codigo
